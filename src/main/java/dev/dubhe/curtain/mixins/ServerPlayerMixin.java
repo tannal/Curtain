@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import dev.dubhe.curtain.features.player.fakes.IServerPlayer;
 import dev.dubhe.curtain.features.player.helpers.EntityPlayerActionPack;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +24,7 @@ public abstract class ServerPlayerMixin implements IServerPlayer {
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
-    private void onServerPlayerEntityContructor(MinecraftServer p_254143_, ServerLevel p_254435_, GameProfile p_253651_, CallbackInfo ci) {
+    private void onServerPlayerEntityContructor(MinecraftServer pServer, ServerLevel pLevel, GameProfile pGameProfile, ClientInformation pClientInformation, CallbackInfo ci) {
         this.actionPack = new EntityPlayerActionPack((ServerPlayer) (Object) this);
     }
 

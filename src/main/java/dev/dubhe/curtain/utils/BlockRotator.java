@@ -3,8 +3,8 @@ package dev.dubhe.curtain.utils;
 import dev.dubhe.curtain.CurtainRules;
 import dev.dubhe.curtain.features.player.fakes.IPistonBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.InteractionHand;
@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -47,9 +46,9 @@ public class BlockRotator {
     }
 
     public static ItemStack dispenserRotate(BlockSource source, ItemStack stack) {
-        Direction sourceFace = source.getBlockState().getValue(DispenserBlock.FACING);
-        Level world = source.getLevel();
-        BlockPos blockpos = source.getPos().relative(sourceFace);
+      Direction sourceFace = source.state().getValue(DispenserBlock.FACING);
+      Level world = source.level();
+      BlockPos blockpos = source.pos().relative(sourceFace);
         BlockState blockstate = world.getBlockState(blockpos);
         Block block = blockstate.getBlock();
 
@@ -87,7 +86,7 @@ public class BlockRotator {
                 world.setBlock(blockpos, blockstate.setValue(HopperBlock.FACING, face), 3);
             }
         }
-        world.neighborChanged(blockpos, block, source.getPos());
+      world.neighborChanged(blockpos, block, source.pos());
         return stack;
     }
 
@@ -109,9 +108,10 @@ public class BlockRotator {
                 newState = state.setValue(DirectionalBlock.FACING, state.getValue(DirectionalBlock.FACING).getOpposite());
             }
         } else if (block instanceof SlabBlock) {
-            if (((SlabBlock) block).useShapeForLightOcclusion(state)) {
-                newState = state.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE) == SlabType.TOP ? SlabType.BOTTOM : SlabType.TOP);
-            }
+          //todo
+//            if (((SlabBlock) block).getLightEmission(state,null,pos)) {
+//                newState = state.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE) == SlabType.TOP ? SlabType.BOTTOM : SlabType.TOP);
+//            }
         } else if (block instanceof HopperBlock) {
             if (state.getValue(HopperBlock.FACING) != Direction.DOWN) {
                 newState = state.setValue(HopperBlock.FACING, state.getValue(HopperBlock.FACING).getClockWise());

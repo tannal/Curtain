@@ -12,7 +12,11 @@ public class InventoryUtils {
      */
     public static boolean shulkerBoxHasItems(ItemStack stackShulkerBox)
     {
-        CompoundTag nbt = stackShulkerBox.getTag();
+      //todo
+      CompoundTag nbt = null;
+      if (nbt == null) {
+        return false;
+      }
 
         if (nbt != null && nbt.contains("BlockEntityTag", Constants.NBT.COMPOUND_TAG))
         {

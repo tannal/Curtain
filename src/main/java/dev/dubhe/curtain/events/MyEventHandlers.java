@@ -6,18 +6,18 @@ import dev.dubhe.curtain.events.rules.open_fake_player_inventory.EntityInteractH
 import dev.dubhe.curtain.events.utils.LevelEventHandler;
 import dev.dubhe.curtain.events.utils.ServerEventHandler;
 import dev.dubhe.curtain.events.utils.ServerLifecycleEventHandler;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.neoforge.common.NeoForge;
 
 public class MyEventHandlers {
     public static void register() {
-        MinecraftForge.EVENT_BUS.register(new ServerLifecycleEventHandler());
-        MinecraftForge.EVENT_BUS.register(new LevelEventHandler());
-        MinecraftForge.EVENT_BUS.register(new ServerEventHandler());
+      NeoForge.EVENT_BUS.register(new ServerLifecycleEventHandler());
+      NeoForge.EVENT_BUS.register(new LevelEventHandler());
+      NeoForge.EVENT_BUS.register(new ServerEventHandler());
 
-        MinecraftForge.EVENT_BUS.register(new EntityInteractHandler());
+      NeoForge.EVENT_BUS.register(new EntityInteractHandler());
 
-        MinecraftForge.EVENT_BUS.register(new FishingHookEventHandler());
-      
-        MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());
+      NeoForge.EVENT_BUS.register(new FishingHookEventHandler());
+
+      NeoForge.EVENT_BUS.register(new PlayerEventHandler());
     }
 }

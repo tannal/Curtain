@@ -78,13 +78,14 @@ public class Button {
     }
 
     public void checkButton(Container container, int slot) {
+      //todo
         ItemStack onItemStack = new ItemStack(this.onItem, this.itemCount);
-        onItemStack.setTag(compoundTag.copy());
-        onItemStack.setHoverName(this.onText);
+//        onItemStack.setTag(compoundTag.copy());
+//        onItemStack.setHoverName(this.onText);
 
         ItemStack offItemStack = new ItemStack(this.offItem, this.itemCount);
-        offItemStack.setTag(compoundTag.copy());
-        offItemStack.setHoverName(this.offText);
+//        offItemStack.setTag(compoundTag.copy());
+//        offItemStack.setHoverName(this.offText);
 
         if (!this.init) {
             updateButton(container, slot, onItemStack, offItemStack);

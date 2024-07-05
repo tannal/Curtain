@@ -6,7 +6,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.npc.Npc;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.trading.Merchant;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +20,7 @@ public abstract class AbstractVillagerMixin extends AgeableMob implements Invent
     }
 
     @Inject(method = "canBeLeashed", at = @At("RETURN"), cancellable = true)
-    private void canBeLeashed(Player player, CallbackInfoReturnable<Boolean> cir) {
+    private void canBeLeashed(CallbackInfoReturnable<Boolean> cir) {
         if (CurtainRules.superLead) {
             cir.setReturnValue(!this.isLeashed());
         }

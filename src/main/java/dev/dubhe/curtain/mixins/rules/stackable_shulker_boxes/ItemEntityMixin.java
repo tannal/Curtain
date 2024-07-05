@@ -79,7 +79,7 @@ public abstract class ItemEntityMixin extends Entity implements ItemEntityInterf
         if (selfStack.getItem() == otherStack.getItem()
                 && !InventoryHelper.shulkerBoxHasItems(selfStack)
                 && !InventoryHelper.shulkerBoxHasItems(otherStack)
-                && Objects.equals(selfStack.getTag(), otherStack.getTag())
+                && Objects.equals(selfStack.getComponents(), otherStack.getComponents())
                 && selfStack.getCount() != CurtainRules.shulkerBoxStackSize) {
             int amount = Math.min(otherStack.getCount(), CurtainRules.shulkerBoxStackSize - selfStack.getCount());
 

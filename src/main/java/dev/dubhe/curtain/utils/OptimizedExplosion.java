@@ -15,12 +15,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -126,7 +124,7 @@ public class OptimizedExplosion {
                 continue;
             }
 
-            if (!entity.ignoreExplosion()) {
+          if (!entity.ignoreExplosion(e)) {
                 double d12 = Math.sqrt(entity.distanceToSqr(eAccess.getX(), eAccess.getY(), eAccess.getZ())) / (double) f3;
 
                 if (d12 <= 1.0D) {
@@ -154,13 +152,13 @@ public class OptimizedExplosion {
                         }
 
                         double d10 = (1.0D - d12) * density;
-                        entity.hurt(e.getDamageSource(),
+                      entity.hurt(e.getIndirectSourceEntity().getLastDamageSource(),
                                 (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)));
                         double d11 = d10;
 
-                        if (entity instanceof LivingEntity) {
-                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                        }
+//                        if (entity instanceof LivingEntity) {
+//                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+//                        }
 
                         if (eLogger != null) {
                             eLogger.onEntityImpacted(entity, new Vec3(d5 * d11, d7 * d11, d9 * d11));

@@ -3,13 +3,12 @@ package dev.dubhe.curtain.events.events;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
-import net.minecraftforge.event.entity.EntityEvent;
+import net.neoforged.bus.api.Event;
 
-public class FishingHookEvent extends EntityEvent {
+public class FishingHookEvent extends Event {
     private final Player owner;
 
     public FishingHookEvent(FishingHook entity) {
-        super(entity);
         owner = entity.getPlayerOwner();
     }
 
