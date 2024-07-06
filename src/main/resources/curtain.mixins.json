@@ -30,6 +30,7 @@
     "rules.creative_no_clip.ShulkerBoxBlockEntityMixin",
     "rules.creative_no_clip.StandingAndWallBlockItemMixin",
     "rules.custom_motd.ServerStatusMixin",
+    "rules.desert_shrubs.SaplingBlockMixin",
     "rules.farmland_trampled_disabled.FarmBlockMixin",
     "rules.optimized_tnt.ExplosionMixin",
     "rules.quick_leaf_decay.LeavesBlockMixin",

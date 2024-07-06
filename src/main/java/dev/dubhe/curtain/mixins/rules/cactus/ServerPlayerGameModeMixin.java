@@ -1,22 +1,29 @@
 package dev.dubhe.curtain.mixins.rules.cactus;
 
+import dev.dubhe.curtain.utils.BlockRotator;
 import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerPlayerGameMode.class)
 public abstract class ServerPlayerGameModeMixin {
-//    @Redirect(
-//            method = "useItemOn",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/world/level/block/state/BlockState;use(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/InteractionResult;"
-//            )
-//    )
-//    private InteractionResult activateWithOptionalCactus(BlockState blockState, Level world, Player player, InteractionHand hand, BlockHitResult result) {
-//        boolean flipped = BlockRotator.flipBlockWithCactus(blockState, world, player, hand, result);
-//        if (flipped) {
-//            return InteractionResult.SUCCESS;
-//        }
-//        return blockState.use(world, player, hand, result);
-//    }
+  @Redirect(method = "useItemOn", at = @At(
+          value = "INVOKE",
+          target = "Lnet/minecraft/world/level/block/state/BlockState;useItemOn(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/InteractionHand;Lnet/minecraft/world/phys/BlockHitResult;)Lnet/minecraft/world/ItemInteractionResult;"
+  ))
+  private ItemInteractionResult activateWithOptionalCactus(final BlockState blockState, final ItemStack itemStack, final Level world_1, final Player playerEntity_1, final InteractionHand hand_1, final BlockHitResult blockHitResult_1) {
+    boolean flipped = BlockRotator.flipBlockWithCactus(blockState, world_1, playerEntity_1, hand_1, blockHitResult_1);
+    if (flipped)
+      return ItemInteractionResult.SUCCESS;
+
+    return blockState.useItemOn(itemStack, world_1, playerEntity_1, hand_1, blockHitResult_1);
+  }
 }
