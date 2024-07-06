@@ -1,10 +1,11 @@
 package dev.dubhe.curtain.mixins.rules.empty_shulker_box_stack_always;
 
 import dev.dubhe.curtain.CurtainRules;
-import dev.dubhe.curtain.utils.InventoryUtils;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,14 +19,13 @@ public abstract class ItemStackMixin {
     public abstract Item getItem();
 
     @Inject(method = "getMaxStackSize", at = @At("HEAD"), cancellable = true)
-    private void allowEmptyShulkerBoxStacking(CallbackInfoReturnable<Integer> cir)
-    {
-        if (CurtainRules.emptyShulkerBoxStackAlways && this.getItem() instanceof BlockItem item)
-        {
-            if (item.getBlock() instanceof ShulkerBoxBlock && !InventoryUtils.shulkerBoxHasItems((ItemStack) (Object) this))
-            {
-                cir.setReturnValue(CurtainRules.shulkerBoxStackSize);
-            }
+    private void getCMMAxStackSize(CallbackInfoReturnable<Integer> cir) {
+        if (CurtainRules.emptyShulkerBoxStackAlways
+                && ((ItemStack) ((Object) this)).getItem() instanceof BlockItem blockItem
+                && blockItem.getBlock() instanceof ShulkerBoxBlock
+                && ((ItemStack) ((Object) this)).getOrDefault(DataComponents.CONTAINER, ItemContainerContents.EMPTY).stream().findAny().isEmpty()
+        ) {
+            cir.setReturnValue(CurtainRules.shulkerBoxStackSize);
         }
     }
 }

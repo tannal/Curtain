@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -108,10 +109,9 @@ public class BlockRotator {
                 newState = state.setValue(DirectionalBlock.FACING, state.getValue(DirectionalBlock.FACING).getOpposite());
             }
         } else if (block instanceof SlabBlock) {
-          //todo
-//            if (((SlabBlock) block).getLightEmission(state,null,pos)) {
-//                newState = state.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE) == SlabType.TOP ? SlabType.BOTTOM : SlabType.TOP);
-//            }
+            if (state.getValue(SlabBlock.TYPE) != SlabType.DOUBLE) {
+                newState = state.setValue(SlabBlock.TYPE, state.getValue(SlabBlock.TYPE) == SlabType.TOP ? SlabType.BOTTOM : SlabType.TOP);
+            }
         } else if (block instanceof HopperBlock) {
             if (state.getValue(HopperBlock.FACING) != Direction.DOWN) {
                 newState = state.setValue(HopperBlock.FACING, state.getValue(HopperBlock.FACING).getClockWise());

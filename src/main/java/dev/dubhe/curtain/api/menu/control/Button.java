@@ -3,6 +3,7 @@ package dev.dubhe.curtain.api.menu.control;
 import dev.dubhe.curtain.api.Function;
 import dev.dubhe.curtain.utils.TranslationHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -78,14 +79,11 @@ public class Button {
     }
 
     public void checkButton(Container container, int slot) {
-      //todo
         ItemStack onItemStack = new ItemStack(this.onItem, this.itemCount);
-//        onItemStack.setTag(compoundTag.copy());
-//        onItemStack.setHoverName(this.onText);
+      onItemStack.set(DataComponents.ITEM_NAME, this.onText);
 
         ItemStack offItemStack = new ItemStack(this.offItem, this.itemCount);
-//        offItemStack.setTag(compoundTag.copy());
-//        offItemStack.setHoverName(this.offText);
+      offItemStack.set(DataComponents.ITEM_NAME, this.offText);
 
         if (!this.init) {
             updateButton(container, slot, onItemStack, offItemStack);

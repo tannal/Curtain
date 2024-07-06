@@ -7,6 +7,7 @@ import dev.dubhe.curtain.features.player.helpers.FakePlayerAutoReplenishment;
 import dev.dubhe.curtain.features.player.menu.FakePlayerInventoryMenu;
 import dev.dubhe.curtain.features.player.patches.EntityPlayerMPFake;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -42,8 +43,7 @@ public class PlayerEventHandler {
   public void onBreak(ItemStackEvent.BreakSpeed event) {
     BlockState state = event.getState();
     event.setSpeed(
-// todo           CurtainRules.missingTools && state.getBlock().getSoundType(state,event.) == SoundType.GLASS ? event.getSpeed() : event.getOriginalSpeed()
-            event.getSpeed()
+            CurtainRules.missingTools && state.getSoundType() == SoundType.GLASS ? event.getSpeed() : event.getOriginalSpeed()
     );
   }
 

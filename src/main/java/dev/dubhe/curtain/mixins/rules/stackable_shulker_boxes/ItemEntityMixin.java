@@ -36,7 +36,8 @@ public abstract class ItemEntityMixin extends Entity implements ItemEntityInterf
         return this.pickupDelay;
     }
 
-    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V", at = @At("RETURN"))
+    //todo
+//    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V", at = @At("RETURN"))
     private void removeEmptyShulkerBoxTags(Level worldIn, double x, double y, double z, ItemStack stack, CallbackInfo ci) {
         if (CurtainRules.shulkerBoxStackSize > 1
                 && stack.getItem() instanceof BlockItem blockItem
