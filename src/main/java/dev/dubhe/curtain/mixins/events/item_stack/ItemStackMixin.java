@@ -3,6 +3,7 @@ package dev.dubhe.curtain.mixins.events.item_stack;
 import dev.dubhe.curtain.events.events.ItemStackEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.Consumer;
-
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
 
@@ -25,8 +24,8 @@ public abstract class ItemStackMixin {
     }
 
   @Inject(method = "hurtAndBreak*", at = @At("HEAD"))
-    private <T extends LivingEntity> void hurtAndBreak(int amount, T entity, Consumer<T> onBroken, CallbackInfo ci) {
-        if (entity instanceof Player player)
-          NeoForge.EVENT_BUS.post(new ItemStackEvent.HurtAndBreak((ItemStack) (Object) this, amount, player));
+  private <T extends LivingEntity> void hurtAndBreak(int pAmount, LivingEntity pEntity, EquipmentSlot pSlot, CallbackInfo ci) {
+    if (pEntity instanceof Player player)
+      NeoForge.EVENT_BUS.post(new ItemStackEvent.HurtAndBreak((ItemStack) (Object) this, pAmount, player));
     }
 }

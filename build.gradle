@@ -46,44 +46,23 @@ repositories {
 }
 
 dependencies {
-    // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     implementation "net.neoforged:neoforge:${neo_version}"
-    // Real mod deobf dependency examples - these get remapped to your current mappings
-    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
-    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
-    // implementation fg.deobf("com.tterrag.registrate:Registrate:MC${mc_version}-${registrate_version}") // Adds registrate as a dependency
-
-    // Examples using mod jars from ./libs
-    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
-
-    // For more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
 }
-//tasks.withType(ProcessResources).configureEach {
-//    var replaceProperties = [
-//            minecraft_version      : minecraft_version,
-//            minecraft_version_range: minecraft_version_range,
-//            neo_version            : neo_version,
-//            neo_version_range      : neo_version_range,
-//            loader_version_range   : loader_version_range,
-//            mod_id                 : mod_id,
-//            mod_name               : mod_name,
-//            mod_license            : mod_license,
-//            mod_version            : mod_version,
-//            mod_authors            : mod_authors,
-//            mod_description        : mod_description
-//    ]
-//    inputs.properties replaceProperties
-//
-//    filesMatching(['META-INF/neoforge.mods.toml']) {
-//        expand replaceProperties
-//    }
-//}
-// Example for how to get properties into the manifest for reading at runtime.
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            version                : version,
+            loader_version_range   : loader_version_range,
+            minecraft_version_range: minecraft_version_range,
+            neo_version_range      : neo_version_range,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
 jar {
     manifest {
         attributes([
@@ -108,5 +87,5 @@ tasks.register('generateRulesReadme', JavaExec) {
     group = "documentation"
     description = "Generates a RULES.MD file for the rules directory"
     classpath sourceSets.main.runtimeClasspath
-    main = "dev.dubhe.curtain.utils.CurtainRulesGenerator"
+    mainClass = "dev.dubhe.curtain.utils.CurtainRulesGenerator"
 }
