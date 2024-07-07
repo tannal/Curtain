@@ -1,8 +1,8 @@
 package dev.dubhe.curtain.events.utils;
 
 import dev.dubhe.curtain.Curtain;
-import net.minecraftforge.event.level.LevelEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class LevelEventHandler {

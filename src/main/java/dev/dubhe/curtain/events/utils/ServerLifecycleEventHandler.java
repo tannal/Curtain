@@ -8,10 +8,10 @@ import dev.dubhe.curtain.commands.PlayerCommand;
 import dev.dubhe.curtain.commands.RuleCommand;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.server.ServerAboutToStartEvent;
-import net.minecraftforge.event.server.ServerStoppedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class ServerLifecycleEventHandler {
@@ -26,7 +26,7 @@ public class ServerLifecycleEventHandler {
     }
 
     @SubscribeEvent
-    public void onServerTick(TickEvent.ServerTickEvent event) {
+    public void onServerTick(ServerTickEvent.Post event) {
         ServerLevel level = event.getServer().getLevel(Level.OVERWORLD);
         if (null != level) {
             long time = level.getGameTime();

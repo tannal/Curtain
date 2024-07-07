@@ -10,7 +10,7 @@ import dev.dubhe.curtain.features.player.helpers.EntityPlayerActionPack.Action;
 import dev.dubhe.curtain.features.player.helpers.EntityPlayerActionPack.ActionType;
 import dev.dubhe.curtain.features.player.patches.EntityPlayerMPFake;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class FishingHookEventHandler {

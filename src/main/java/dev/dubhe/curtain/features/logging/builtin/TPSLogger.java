@@ -20,11 +20,11 @@ public class TPSLogger extends AbstractHudLogger {
     @Override
     public Component display(ServerPlayer player) {
         MinecraftServer server = Curtain.minecraftServer;
-        final OptionalDouble averageTPS = Arrays.stream(server.tickTimes).average();
+      final OptionalDouble averageTPS = Arrays.stream(server.getTickTimesNanos()).average();
         if (averageTPS.isEmpty()) {
             return Component.literal("No TPS data available").withStyle(style -> style.withColor(ChatFormatting.RED));
         }
-        double MSPT = Arrays.stream(server.tickTimes).average().getAsDouble() * 1.0E-6D;
+      double MSPT = Arrays.stream(server.getTickTimesNanos()).average().getAsDouble() * 1.0E-6D;
         double TPS = Math.min(1000.0D / MSPT, MAX_TPS);
         ChatFormatting color = ChatFormatting.GREEN;
         if (MSPT >= 0.0D) {

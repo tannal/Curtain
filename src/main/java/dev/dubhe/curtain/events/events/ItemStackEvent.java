@@ -1,17 +1,14 @@
 package dev.dubhe.curtain.events.events;
 
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.eventbus.api.Cancelable;
-import net.minecraftforge.eventbus.api.Event;
+import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.ICancellableEvent;
 
-import java.util.function.Consumer;
-
-public class ItemStackEvent extends Event {
+public class ItemStackEvent extends Event implements ICancellableEvent {
     private final ItemStack stack;
 
     protected ItemStackEvent(ItemStack stack) {
@@ -22,8 +19,8 @@ public class ItemStackEvent extends Event {
         return stack;
     }
 
-    @Cancelable
-    public static class Use extends ItemStackEvent {
+
+  public static class Use extends ItemStackEvent {
         private final Level level;
         private final Player player;
         private final InteractionHand usedHand;
@@ -48,8 +45,8 @@ public class ItemStackEvent extends Event {
         }
     }
 
-    @Cancelable
-    public static class HurtAndBreak extends ItemStackEvent {
+
+  public static class HurtAndBreak extends ItemStackEvent {
         private final int amount;
         private final Player player;
 
@@ -68,8 +65,8 @@ public class ItemStackEvent extends Event {
         }
     }
 
-    @Cancelable
-    public static class BreakSpeed extends ItemStackEvent {
+
+  public static class BreakSpeed extends ItemStackEvent {
         private final BlockState state;
         private final float originalSpeed;
         private float speed;

@@ -3,7 +3,12 @@ package dev.dubhe.curtain.utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +55,7 @@ public class Messenger {
         BLACK('k', (s, f) -> s.withColor(ChatFormatting.BLACK)),
 
         COLOR('#', (s, f) -> {
-            TextColor color = TextColor.parseColor("#" + f);
+            TextColor color = TextColor.parseColor("#" + f).getOrThrow();
             return color == null ? s : s.withColor(color);
         }, s -> {
             Matcher m = colorExtract.matcher(s);
