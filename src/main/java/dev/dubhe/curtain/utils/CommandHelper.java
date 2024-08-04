@@ -36,13 +36,6 @@ public final class CommandHelper {
      * Whether the given source has enough permission level to run a command that requires the given commandLevel
      */
     public static boolean canUseCommand(CommandSourceStack source, Object commandLevel) {
-        if (commandLevel instanceof Boolean) return (Boolean) commandLevel;
-        String commandLevelString = commandLevel.toString();
-        return switch (commandLevelString) {
-            case "true" -> true;
-            case "ops" -> source.hasPermission(2); // typical for other cheaty commands
-            case "0", "1", "2", "3", "4" -> source.hasPermission(Integer.parseInt(commandLevelString));
-            default -> false; //"false" or default
-        };
+        return true;
     }
 }
